@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+# SharpDevelop 4.2.2.8818
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ditw.App.MediaSource.ConsoleTest", "Ditw.App.MediaSource.ConsoleTest\Ditw.App.MediaSource.ConsoleTest.csproj", "{00B415D7-6FC0-427F-8DBC-7C8A24E2064F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ditw.App.MediaSource.WebScraping", "Ditw.App.MediaSource.WebScraping\Ditw.App.MediaSource.WebScraping.csproj", "{045931AE-6E49-41CE-8807-9CEF2B4F25C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ditw.App.MediaSource.DbTest", "Ditw.App.MediaSource.DbTest\Ditw.App.MediaSource.DbTest.csproj", "{4BAC7106-1E96-43EA-8672-F5F3247BF5EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ditw.App.MediaSource.DbUtil", "Ditw.App.MediaSource.DbUtil\Ditw.App.MediaSource.DbUtil.csproj", "{09D28800-6188-43BE-86FC-1B010C322F80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ditw.App.MediaSource.DataLayer", "Ditw.App.MediaSource.DataLayer\Ditw.App.MediaSource.DataLayer.csproj", "{D225D4F0-5F02-4E7A-A7CA-D13783A983CE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00B415D7-6FC0-427F-8DBC-7C8A24E2064F}.Debug|x86.Build.0 = Debug|x86
+		{00B415D7-6FC0-427F-8DBC-7C8A24E2064F}.Debug|x86.ActiveCfg = Debug|x86
+		{00B415D7-6FC0-427F-8DBC-7C8A24E2064F}.Release|x86.Build.0 = Release|x86
+		{00B415D7-6FC0-427F-8DBC-7C8A24E2064F}.Release|x86.ActiveCfg = Release|x86
+		{045931AE-6E49-41CE-8807-9CEF2B4F25C1}.Debug|x86.Build.0 = Debug|x86
+		{045931AE-6E49-41CE-8807-9CEF2B4F25C1}.Debug|x86.ActiveCfg = Debug|x86
+		{045931AE-6E49-41CE-8807-9CEF2B4F25C1}.Release|x86.Build.0 = Release|x86
+		{045931AE-6E49-41CE-8807-9CEF2B4F25C1}.Release|x86.ActiveCfg = Release|x86
+		{4BAC7106-1E96-43EA-8672-F5F3247BF5EB}.Debug|x86.Build.0 = Debug|x86
+		{4BAC7106-1E96-43EA-8672-F5F3247BF5EB}.Debug|x86.ActiveCfg = Debug|x86
+		{4BAC7106-1E96-43EA-8672-F5F3247BF5EB}.Release|x86.Build.0 = Release|x86
+		{4BAC7106-1E96-43EA-8672-F5F3247BF5EB}.Release|x86.ActiveCfg = Release|x86
+		{09D28800-6188-43BE-86FC-1B010C322F80}.Debug|x86.Build.0 = Debug|x86
+		{09D28800-6188-43BE-86FC-1B010C322F80}.Debug|x86.ActiveCfg = Debug|x86
+		{09D28800-6188-43BE-86FC-1B010C322F80}.Release|x86.Build.0 = Release|x86
+		{09D28800-6188-43BE-86FC-1B010C322F80}.Release|x86.ActiveCfg = Release|x86
+		{D225D4F0-5F02-4E7A-A7CA-D13783A983CE}.Debug|x86.Build.0 = Debug|x86
+		{D225D4F0-5F02-4E7A-A7CA-D13783A983CE}.Debug|x86.ActiveCfg = Debug|x86
+		{D225D4F0-5F02-4E7A-A7CA-D13783A983CE}.Release|x86.Build.0 = Release|x86
+		{D225D4F0-5F02-4E7A-A7CA-D13783A983CE}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+EndGlobal

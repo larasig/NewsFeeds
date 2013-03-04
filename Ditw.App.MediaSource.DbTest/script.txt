@@ -1,0 +1,29 @@
+﻿create database NewsFeeds;
+use NewsFeeds;
+create table News (
+  srcId INT,
+  id VARCHAR(32),
+  pubDate DATE,
+  content VARCHAR(19200),
+  raw TEXT
+);
+
+create table NewsSource (
+  id INT,
+  name VARCHAR(32),
+  description VARCHAR(64)
+);
+
+create table CapturedText (
+  filterId INT,
+  capturedText VARCHAR(128),
+  status INT,
+  contextText VARCHAR(256)
+);
+
+create table FilterInfo (
+  filterId INT,
+  name VARCHAR(32),
+  description VARCHAR(64),
+  status VARCHAR(16)
+);
