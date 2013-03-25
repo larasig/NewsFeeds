@@ -18,7 +18,7 @@ namespace Ditw.App.MediaSource.ConsoleTest
 	{
 		public static void Main(string[] args)
 		{			
-			WebScraperQQ wsQQ = new WebScraperQQ(DateTime.Today.AddYears(-1).AddDays(26), 0, 1500);
+			WebScraperQQ wsQQ = new WebScraperQQ(DateTime.Today.AddYears(-1).AddDays(32), 0, 1500);
 			
 			#if false
 			foreach(String s in wsQQ.RawFeeds)
