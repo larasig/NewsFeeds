@@ -16,6 +16,11 @@ namespace Ditw.App.MediaSource.WebScraping
 	public static class MediaSourceID
 	{
 		// Chinese
-		public const Int32 ZHS_QQ = 100100;
-	}
+        public const Int32 ZHS_QQ = 100100;
+        public const Int32 ENG_SECURITYWEEK = 200100;
+        public const Int32 ENG_TRENDMICRO = 200101;
+        public const Int32 ENG_VIRUSORG = 200102;
+        public const Int32 ENG_AVG = 200103;
+        public const Int32 ENG_HSECURITY = 200104;
+    }
 }

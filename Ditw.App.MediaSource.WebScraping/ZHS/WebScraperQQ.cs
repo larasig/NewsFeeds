@@ -17,9 +17,7 @@ using Ditw.App.MediaSource.DbUtil;
 using HtmlAgilityPack;
 
 namespace Ditw.App.MediaSource.WebScraping.ZHS
-{
-	public delegate void NewFeedAvailable(IDataStore dataStore);
-	
+{	
 	/// <summary>
 	/// Description of WebScraperQQ.
 	/// </summary>

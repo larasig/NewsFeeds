@@ -83,8 +83,32 @@ namespace Ditw.App.MediaSource.DbUtil
 				MySQLAgent.CloseConnection();
 			}
 		}
-		
-		public static void ReadCapturedText(
+
+        public static IEnumerable<String> ReadIdsFromSource(
+            Int32 sourceId,
+            String connString = null,
+            CommandBehavior commandBehavior = CommandBehavior.CloseConnection)
+        {
+            MySQLAgent.OpenConnectionIfNotYet(connString);
+
+            String colName = "id";
+            DbCommand cmd = CreateReadCommand(sourceId, colName);
+
+            using (DbDataReader reader = cmd.ExecuteReader(commandBehavior))
+            {
+                while (reader.Read())
+                {
+                    yield return (String)reader[colName];
+                }
+            }
+
+            if (CommandBehavior.CloseConnection == commandBehavior)
+            {
+                MySQLAgent.CloseConnection();
+            }
+        }
+
+        public static void ReadCapturedText(
 			Int32? filterId,
 			Action<String> textHandler,
 			String connString = null,
@@ -365,31 +389,54 @@ namespace Ditw.App.MediaSource.DbUtil
 				return cmd;
 			}
 		}
-		
-		public static DbCommand CreateReadCommand(DateTime? dt = null, String dataField = null)
-		{
-			//String paramName = "pubDate";
-			DbCommand cmd = MySQLAgent.CreateCommand();
-			if (dt != null)
-			{
-				cmd.CommandText = String.Format(
-					@"SELECT {0} FROM news WHERE pubDate=@pubDate",
-				    String.IsNullOrEmpty(dataField) ? "*" : dataField
-	                );
-				AddParameter(cmd, "pubDate", dt);
-				return cmd;
-			}
-			else
-			{
-				cmd.CommandText = String.Format(
-					@"SELECT {0} FROM news",
-				    String.IsNullOrEmpty(dataField) ? "*" : dataField
-	                );
-				return cmd;
-			}
-		}
-		
-		private const Int32 NewsContentMaxLength = 19200;
+
+        public static DbCommand CreateReadCommand(DateTime? dt = null, String dataField = null)
+        {
+            //String paramName = "pubDate";
+            DbCommand cmd = MySQLAgent.CreateCommand();
+            if (dt != null)
+            {
+                cmd.CommandText = String.Format(
+                    @"SELECT {0} FROM news WHERE pubDate=@pubDate",
+                    String.IsNullOrEmpty(dataField) ? "*" : dataField
+                    );
+                AddParameter(cmd, "pubDate", dt);
+                return cmd;
+            }
+            else
+            {
+                cmd.CommandText = String.Format(
+                    @"SELECT {0} FROM news",
+                    String.IsNullOrEmpty(dataField) ? "*" : dataField
+                    );
+                return cmd;
+            }
+        }
+
+        public static DbCommand CreateReadCommand(Int32 sourceId = -1, String dataField = null)
+        {
+            //String paramName = "pubDate";
+            DbCommand cmd = MySQLAgent.CreateCommand();
+            if (sourceId != -1)
+            {
+                cmd.CommandText = String.Format(
+                    @"SELECT {0} FROM news WHERE srcId=@srcId",
+                    String.IsNullOrEmpty(dataField) ? "*" : dataField
+                    );
+                AddParameter(cmd, "srcId", sourceId);
+                return cmd;
+            }
+            else
+            {
+                cmd.CommandText = String.Format(
+                    @"SELECT {0} FROM news",
+                    String.IsNullOrEmpty(dataField) ? "*" : dataField
+                    );
+                return cmd;
+            }
+        }
+
+        private const Int32 NewsContentMaxLength = 19200;
 		
 	}
 		

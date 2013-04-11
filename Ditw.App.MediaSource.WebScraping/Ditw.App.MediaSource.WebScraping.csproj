@@ -38,20 +38,26 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ENG\WebScraper_Avg.cs" />
+    <Compile Include="ENG\WebScraper_HSecurity.cs" />
+    <Compile Include="ENG\WebScraper_SecurityWeek.cs" />
+    <Compile Include="ENG\WebScraper_TrandMicro.cs" />
+    <Compile Include="ENG\WebScraper_VirusOrg.cs" />
+    <Compile Include="HtmlAgilityPackEx.cs" />
     <Compile Include="IWebScraper.cs" />
     <Compile Include="MediaSourceID.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RssFeedWebScraper.cs" />
     <Compile Include="ZHS\WebScraperQQ.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ZHS" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Ditw.App.MediaSource.DataLayer\Ditw.App.MediaSource.DataLayer.csproj">
       <Project>{D225D4F0-5F02-4E7A-A7CA-D13783A983CE}</Project>
