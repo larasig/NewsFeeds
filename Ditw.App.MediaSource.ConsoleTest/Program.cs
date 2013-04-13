@@ -23,11 +23,13 @@ namespace Ditw.App.MediaSource.ConsoleTest
 		public static void Main(string[] args)
 		{
             //FetchFeed_QQ();
-            //FetchFeed_SecurityWeek();
-            //FetchFeed_TrendMicro();
-            //FetchFeed_VirusOrg();
-            //FetchFeed_Avg();
+            FetchFeed_SecurityWeek();
+            FetchFeed_TrendMicro();
+            FetchFeed_VirusOrg();
+            FetchFeed_Avg();
             FetchFeed_HSecurity();
+            FetchFeed_TheRegister();
+            FetchFeed_V3uk();
 
 			Console.Write("Press any key to continue . . . ");
 			Console.ReadKey(true);
@@ -41,6 +43,27 @@ namespace Ditw.App.MediaSource.ConsoleTest
                 IdSet.Add(id);
             }
         }
+
+        static void FetchFeed_TheRegister(
+            )
+        {
+            WebScraper_TheRegister theReg = new WebScraper_TheRegister(
+                @"http://www.theregister.co.uk/security/headlines.atom",
+                MediaSourceID.ENG_THEREGISTER,
+                Encoding.UTF8);
+            FetchRssFeed(theReg);
+        }
+
+        static void FetchFeed_V3uk(
+            )
+        {
+            WebScraper_V3uk v3uk = new WebScraper_V3uk(
+                @"http://www.v3.co.uk/feeds/rss/category/security",
+                MediaSourceID.ENG_V3UK,
+                Encoding.UTF8);
+            FetchRssFeed(v3uk);
+        }
+
 
         static void FetchFeed_SecurityWeek(
             )

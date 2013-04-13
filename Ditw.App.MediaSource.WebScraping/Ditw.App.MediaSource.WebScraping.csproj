@@ -48,7 +48,9 @@
     <Compile Include="ENG\WebScraper_Avg.cs" />
     <Compile Include="ENG\WebScraper_HSecurity.cs" />
     <Compile Include="ENG\WebScraper_SecurityWeek.cs" />
+    <Compile Include="ENG\WebScraper_TheRegister.cs" />
     <Compile Include="ENG\WebScraper_TrandMicro.cs" />
+    <Compile Include="ENG\WebScraper_V3uk.cs" />
     <Compile Include="ENG\WebScraper_VirusOrg.cs" />
     <Compile Include="HtmlAgilityPackEx.cs" />
     <Compile Include="IWebScraper.cs" />

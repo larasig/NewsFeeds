@@ -22,5 +22,7 @@ namespace Ditw.App.MediaSource.WebScraping
         public const Int32 ENG_VIRUSORG = 200102;
         public const Int32 ENG_AVG = 200103;
         public const Int32 ENG_HSECURITY = 200104;
+        public const Int32 ENG_THEREGISTER = 200105;
+        public const Int32 ENG_V3UK = 200106;
     }
 }
