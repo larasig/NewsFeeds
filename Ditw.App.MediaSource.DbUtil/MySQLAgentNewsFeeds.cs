@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Text;
 
 namespace Ditw.App.MediaSource.DbUtil
 {
@@ -89,9 +90,21 @@ namespace Ditw.App.MediaSource.DbUtil
             String connString = null,
             CommandBehavior commandBehavior = CommandBehavior.CloseConnection)
         {
+            return ReadStringsFromSource(
+                sourceId,
+                "id",
+                connString,
+                commandBehavior);
+        }
+        public static IEnumerable<String> ReadStringsFromSource(
+            Int32 sourceId,
+            String colName,
+            String connString = null,
+            CommandBehavior commandBehavior = CommandBehavior.CloseConnection)
+        {
             MySQLAgent.OpenConnectionIfNotYet(connString);
 
-            String colName = "id";
+            //String colName = fieldName;
             DbCommand cmd = CreateReadCommand(sourceId, colName);
 
             using (DbDataReader reader = cmd.ExecuteReader(commandBehavior))
@@ -413,8 +426,45 @@ namespace Ditw.App.MediaSource.DbUtil
             }
         }
 
-        public static DbCommand CreateReadCommand(Int32 sourceId = -1, String dataField = null)
+        public static DbCommand CreateReadCommand(String dataField, params QueryCondition[] conditions)
         {
+            DbCommand cmd = MySQLAgent.CreateCommand();
+            String cmdText = @"SELECT {0} FROM news";
+            String field = String.IsNullOrEmpty(dataField) ? "*" : dataField;
+            String selectPart = String.Format(cmdText, field);
+            if (conditions == null || conditions.Length == 0)
+            {
+                cmd.CommandText = selectPart;
+            }
+            else
+            {
+                StringBuilder builder = new StringBuilder();
+                builder.AppendFormat(" WHERE {0}=@{0}", conditions[0].ParamName);
+                for (Int32 i = 1; i < conditions.Length; i++)
+                {
+                    builder.AppendFormat(" and {0}=@{0}", conditions[i].ParamName);
+                }
+                cmd.CommandText = selectPart + builder.ToString();
+                // Add parameters
+                for (Int32 i = 0; i < conditions.Length; i++)
+                {
+                    AddParameter(cmd, conditions[i].ParamName, conditions[i].Value);
+                }
+            }
+            return cmd;
+        }
+
+        public static DbCommand CreateReadCommand(Int32 sourceId, String dataField = null)
+        {
+#if true
+            return CreateReadCommand(dataField,
+                new QueryCondition()
+                {
+                    ParamName = "srcId",
+                    Value = sourceId
+                }
+                );
+#else
             //String paramName = "pubDate";
             DbCommand cmd = MySQLAgent.CreateCommand();
             if (sourceId != -1)
@@ -434,6 +484,7 @@ namespace Ditw.App.MediaSource.DbUtil
                     );
                 return cmd;
             }
+#endif
         }
 
         private const Int32 NewsContentMaxLength = 19200;
