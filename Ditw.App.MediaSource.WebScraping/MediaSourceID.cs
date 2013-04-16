@@ -24,5 +24,8 @@ namespace Ditw.App.MediaSource.WebScraping
         public const Int32 ENG_HSECURITY = 200104;
         public const Int32 ENG_THEREGISTER = 200105;
         public const Int32 ENG_V3UK = 200106;
+        public const Int32 ENG_ZDNET = 200107;
+        public const Int32 ENG_INFOWORLD = 200108;
+        public const Int32 ENG_THREATPOST = 200109;
     }
 }

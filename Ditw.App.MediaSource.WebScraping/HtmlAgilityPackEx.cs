@@ -19,6 +19,32 @@ namespace Ditw.App.MediaSource.WebScraping
                 );
         }
 
+        public static HtmlNode GetOffspringNodeWithLongestContent(
+            this HtmlNode node,
+            String nodeType,
+            Int32 depth)
+        {
+            HtmlNode contentNode = null;
+            //Int32 maxCount = -1;
+            Int32 maxLength = -1;
+            foreach (var n in GetOffspringNodes(node, nodeType, depth,
+                (n, t) =>
+                {
+                    return n.ChildNodes.Where(cn => cn.Name == nodeType).Count() > 0;
+                }
+                ))
+            {
+                Int32 len = n.ChildNodes.Where(cn => cn.Name == nodeType)
+                    .Sum(cn => cn.InnerText.Length);
+                if (maxLength < len)
+                {
+                    contentNode = n;
+                    maxLength = len;
+                }
+            }
+            return contentNode;
+        }
+
         public static IEnumerable<HtmlNode> GetOffspringNodesWithIdStartsWith(
             this HtmlNode node,
             String idPrefix,

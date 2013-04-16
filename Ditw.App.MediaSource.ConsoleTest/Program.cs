@@ -22,14 +22,17 @@ namespace Ditw.App.MediaSource.ConsoleTest
 	{
 		public static void Main(string[] args)
 		{
-            //FetchFeed_QQ();
-            FetchFeed_SecurityWeek();
-            FetchFeed_TrendMicro();
-            FetchFeed_VirusOrg();
-            FetchFeed_Avg();
-            FetchFeed_HSecurity();
-            FetchFeed_TheRegister();
-            FetchFeed_V3uk();
+            FetchFeed_QQ();
+            //FetchFeed_SecurityWeek();
+            //FetchFeed_TrendMicro();
+            //FetchFeed_VirusOrg();
+            //FetchFeed_Avg();
+            //FetchFeed_HSecurity();
+            //FetchFeed_TheRegister();
+            //FetchFeed_V3uk();
+            //FetchFeed_ZDNetSec();
+            //FetchFeed_Infoworld();
+            //FetchFeed_ThreatPost();
 
 			Console.Write("Press any key to continue . . . ");
 			Console.ReadKey(true);
@@ -42,6 +45,26 @@ namespace Ditw.App.MediaSource.ConsoleTest
             {
                 IdSet.Add(id);
             }
+        }
+
+        static void FetchFeed_ThreatPost(
+            )
+        {
+            WebScraper_ThreatPost threatPost = new WebScraper_ThreatPost(
+                @"http://threatpost.com/en_us/taxonomy/term/3/0/feed",
+                MediaSourceID.ENG_THREATPOST,
+                Encoding.UTF8);
+            FetchRssFeed(threatPost);
+        }
+
+        static void FetchFeed_Infoworld(
+            )
+        {
+            WebScraper_Infoworld infoworld = new WebScraper_Infoworld(
+                @"http://www.infoworld.com/taxonomy/term/2535/feed",
+                MediaSourceID.ENG_INFOWORLD,
+                Encoding.UTF8);
+            FetchRssFeed(infoworld);
         }
 
         static void FetchFeed_TheRegister(
@@ -62,6 +85,16 @@ namespace Ditw.App.MediaSource.ConsoleTest
                 MediaSourceID.ENG_V3UK,
                 Encoding.UTF8);
             FetchRssFeed(v3uk);
+        }
+
+        static void FetchFeed_ZDNetSec(
+            )
+        {
+            WebScraper_ZDNetSec zdNet = new WebScraper_ZDNetSec(
+                @"http://www.zdnet.com/topic-security/rss.xml",
+                MediaSourceID.ENG_ZDNET,
+                Encoding.UTF8);
+            FetchRssFeed(zdNet);
         }
 
 
