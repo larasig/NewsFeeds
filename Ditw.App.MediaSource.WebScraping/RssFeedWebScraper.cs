@@ -96,7 +96,15 @@ namespace Ditw.App.MediaSource.WebScraping
 
             XmlTextReader xmlReader = new XmlTextReader(FeedUrl);
 
-            SyndicationFeed feed = SyndicationFeed.Load(xmlReader);
+            SyndicationFeed feed;
+            try
+            {
+                feed = SyndicationFeed.Load(xmlReader);
+            }
+            catch
+            {
+                return;
+            }
 
             //Int32 idIdx = 0;
             foreach (var f in feed.Items)

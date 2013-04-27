@@ -22,17 +22,20 @@ namespace Ditw.App.MediaSource.ConsoleTest
 	{
 		public static void Main(string[] args)
 		{
+#if false
             FetchFeed_QQ();
-            //FetchFeed_SecurityWeek();
-            //FetchFeed_TrendMicro();
-            //FetchFeed_VirusOrg();
-            //FetchFeed_Avg();
-            //FetchFeed_HSecurity();
-            //FetchFeed_TheRegister();
-            //FetchFeed_V3uk();
-            //FetchFeed_ZDNetSec();
-            //FetchFeed_Infoworld();
-            //FetchFeed_ThreatPost();
+#else
+            FetchFeed_SecurityWeek();
+            FetchFeed_TrendMicro();
+            FetchFeed_VirusOrg();
+            FetchFeed_Avg();
+            FetchFeed_HSecurity();
+            FetchFeed_TheRegister();
+            FetchFeed_V3uk();
+            FetchFeed_ZDNetSec();
+            FetchFeed_Infoworld();
+            FetchFeed_ThreatPost();
+#endif
 
 			Console.Write("Press any key to continue . . . ");
 			Console.ReadKey(true);
