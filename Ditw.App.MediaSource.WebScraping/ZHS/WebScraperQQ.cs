@@ -169,7 +169,7 @@ namespace Ditw.App.MediaSource.WebScraping.ZHS
 								raw);
 						if (ds != null)
 						{
-							OnNewFeedAvailable(ds);
+							OnNewFeedAvailable("news", ds);
 							Trace.WriteLine(String.Format(
 								"Get feed from URL: {0}", url)
 							);

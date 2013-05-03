@@ -27,5 +27,6 @@ namespace Ditw.App.MediaSource.WebScraping
         public const Int32 ENG_ZDNET = 200107;
         public const Int32 ENG_INFOWORLD = 200108;
         public const Int32 ENG_THREATPOST = 200109;
+        public const Int32 ENG_HACKERSPOST = 200110;
     }
 }

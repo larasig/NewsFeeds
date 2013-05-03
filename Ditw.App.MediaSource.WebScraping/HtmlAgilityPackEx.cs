@@ -9,6 +9,26 @@ namespace Ditw.App.MediaSource.WebScraping
 {
     public static class HtmlAgilityPackEx
     {
+        public static HtmlNode FindSiblingOfClass(this HtmlNode node, String classAttr)
+        {
+            var n = node;
+            while (n.NextSibling != null)
+            {
+                n = n.NextSibling;
+                if (n.Attributes.Contains("class"))
+                {
+                    String attrVal = n.Attributes["class"].Value;
+                    String[] classes = attrVal.Split(new Char[] { ' ' });
+                    if (classes.Contains(classAttr))
+                    {
+                        return n;
+                    }
+                }
+                //n = n.NextSibling;
+            }
+            return null;
+        }
+
         public static IEnumerable<HtmlNode> GetOffspringNodesOfType(
             this HtmlNode node,
             String nodeType,

@@ -11,7 +11,7 @@ using HtmlAgilityPack;
 
 namespace Ditw.App.MediaSource.WebScraping
 {
-    public delegate void NewFeedAvailable(IDataStore dataStore);
+    public delegate void NewFeedAvailable(String tableName, IDataStore dataStore);
 
     public abstract class RssFeedWebScraper : IWebScraper
     {
@@ -90,6 +90,11 @@ namespace Ditw.App.MediaSource.WebScraping
             }
         }
 
+        protected virtual Uri GetFeedLink(SyndicationItem feed)
+        {
+            return feed.Links[0].Uri;
+        }
+
         public virtual void Start()
         {
             // ReadIdsFromSource
@@ -119,7 +124,7 @@ namespace Ditw.App.MediaSource.WebScraping
                 Trace.WriteLine(f.Links.Count);
                 Trace.WriteLine(f.Links[0].Uri);
 #endif
-                Uri uri = f.Links[0].Uri;
+                Uri uri = GetFeedLink(f);
 
                 WebClient wc = new WebClient();
                 wc.Encoding = SourcePageEncoding;
@@ -133,7 +138,7 @@ namespace Ditw.App.MediaSource.WebScraping
 
                 if (ds != null)
                 {
-                    OnNewFeedAvailable(ds);
+                    OnNewFeedAvailable("news_eng", ds);
                     Trace.WriteLine(String.Format(
                         "Get feed from URL: {0}", uri)
                     );

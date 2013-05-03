@@ -24,6 +24,7 @@ namespace Ditw.App.MediaSource.DbTest
 		{
 			//MySQLAgent.InitializeConnection();
 			MySQLAgentNewsFeeds.InsertNews(
+                "news",
 				1, "1", DateTime.Now, "中文11 chinese", "zhong we'n 原始");
 			
 			Console.Write("Press any key to continue . . . ");

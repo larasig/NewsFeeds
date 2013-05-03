@@ -19,9 +19,10 @@ namespace Ditw.App.MediaSource.DbUtil
 	/// </summary>
 	public static class MySQLAgentNewsFeeds
 	{
-		public static void InsertNews(IDataStore dataStore, String connString = null)
+		public static void InsertNews(String newsTableName, IDataStore dataStore, String connString = null)
 		{
 			InsertNews(
+                newsTableName,
 				(Int32)dataStore["srcId"],
 				(String)dataStore["id"],
 				(DateTime)dataStore["pubDate"],
@@ -32,6 +33,7 @@ namespace Ditw.App.MediaSource.DbUtil
 		}
 		
 		public static void InsertNews(
+            String newsTableName,
 			Int32 srcId,
 			String id,
 			DateTime date,
@@ -43,7 +45,7 @@ namespace Ditw.App.MediaSource.DbUtil
 
 			MySQLAgent.RunCommandsInOrder(
 				connString,
-				CreateInsertNewsCommand(srcId, id, date, content, raw)
+                CreateInsertNewsCommand(newsTableName, srcId, id, date, content, raw)
 			);
 		}
 		
@@ -91,12 +93,14 @@ namespace Ditw.App.MediaSource.DbUtil
             CommandBehavior commandBehavior = CommandBehavior.CloseConnection)
         {
             return ReadStringsFromSource(
+                "news_eng",
                 sourceId,
                 "id",
                 connString,
                 commandBehavior);
         }
         public static IEnumerable<String> ReadStringsFromSource(
+            String tableName,
             Int32 sourceId,
             String colName,
             String connString = null,
@@ -105,7 +109,7 @@ namespace Ditw.App.MediaSource.DbUtil
             MySQLAgent.OpenConnectionIfNotYet(connString);
 
             //String colName = fieldName;
-            DbCommand cmd = CreateReadCommand(sourceId, colName);
+            DbCommand cmd = CreateReadCommand(tableName, sourceId, colName);
 
             using (DbDataReader reader = cmd.ExecuteReader(commandBehavior))
             {
@@ -312,6 +316,7 @@ namespace Ditw.App.MediaSource.DbUtil
 		/// </summary>
 		/// <returns></returns>
 		public static DbCommand[] CreateInsertNewsCommand(
+            String newsTableName,
 			Int32 srcId,
 			String id,
 			DateTime date,
@@ -321,7 +326,7 @@ namespace Ditw.App.MediaSource.DbUtil
 		{
 			Int32 contentIndex = 0;
 			List<DbCommand> cmdList = new List<DbCommand>();
-			const String insertTempl = @"INSERT INTO News(srcId, id, pubDate, content, raw, content_idx) VALUES(
+			String insertTempl = "INSERT INTO " + newsTableName + @"(srcId, id, pubDate, content, raw, content_idx) VALUES(
 	@srcId,
 	@id,
 	@pubDate,
@@ -426,10 +431,10 @@ namespace Ditw.App.MediaSource.DbUtil
             }
         }
 
-        public static DbCommand CreateReadCommand(String dataField, params QueryCondition[] conditions)
+        public static DbCommand CreateReadCommand(String tableName, String dataField, params QueryCondition[] conditions)
         {
             DbCommand cmd = MySQLAgent.CreateCommand();
-            String cmdText = @"SELECT {0} FROM news";
+            String cmdText = @"SELECT {0} FROM " + tableName;
             String field = String.IsNullOrEmpty(dataField) ? "*" : dataField;
             String selectPart = String.Format(cmdText, field);
             if (conditions == null || conditions.Length == 0)
@@ -454,10 +459,10 @@ namespace Ditw.App.MediaSource.DbUtil
             return cmd;
         }
 
-        public static DbCommand CreateReadCommand(Int32 sourceId, String dataField = null)
+        public static DbCommand CreateReadCommand(String tableName, Int32 sourceId, String dataField = null)
         {
 #if true
-            return CreateReadCommand(dataField,
+            return CreateReadCommand(tableName, dataField,
                 new QueryCondition()
                 {
                     ParamName = "srcId",

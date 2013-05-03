@@ -25,6 +25,7 @@ namespace Ditw.App.MediaSource.ConsoleTest
 #if false
             FetchFeed_QQ();
 #else
+            FetchFeed_HackersPost();
             FetchFeed_SecurityWeek();
             FetchFeed_TrendMicro();
             FetchFeed_VirusOrg();
@@ -48,6 +49,16 @@ namespace Ditw.App.MediaSource.ConsoleTest
             {
                 IdSet.Add(id);
             }
+        }
+
+        static void FetchFeed_HackersPost(
+            )
+        {
+            WebScraper_HackersPost hackersPost = new WebScraper_HackersPost(
+                @"http://feeds.feedburner.com/TheHackersPost",
+                MediaSourceID.ENG_HACKERSPOST,
+                Encoding.UTF8);
+            FetchRssFeed(hackersPost);
         }
 
         static void FetchFeed_ThreatPost(
@@ -192,17 +203,19 @@ namespace Ditw.App.MediaSource.ConsoleTest
 #endif
         }
 
-        static void InsertNews_OnNewFeedAvailable(IDataStore dataStore)
+        static void InsertNews_OnNewFeedAvailable(String tableName, IDataStore dataStore)
         {
-            MySQLAgentNewsFeeds.InsertNews(dataStore);
+            MySQLAgentNewsFeeds.InsertNews(
+                tableName, // the old news table
+                dataStore);
         }
 
-        static void InsertNewsCheckDuplicate_OnNewFeedAvailable(IDataStore dataStore)
+        static void InsertNewsCheckDuplicate_OnNewFeedAvailable(String tableName, IDataStore dataStore)
         {
             String id = (String)dataStore["id"];
             if (!IdSet.Contains(id))
             {
-                MySQLAgentNewsFeeds.InsertNews(dataStore);
+                MySQLAgentNewsFeeds.InsertNews(tableName, dataStore);
             }
             else
             {

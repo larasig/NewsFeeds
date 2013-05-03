@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ENG\WebScraper_Avg.cs" />
+    <Compile Include="ENG\WebScraper_HackersPost.cs" />
     <Compile Include="ENG\WebScraper_HSecurity.cs" />
     <Compile Include="ENG\WebScraper_Infoworld.cs" />
     <Compile Include="ENG\WebScraper_SecurityWeek.cs" />
