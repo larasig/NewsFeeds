@@ -18,7 +18,7 @@ namespace Ditw.App.MediaSource.WebScraping.ENG
         {
             return feed.Links
                 .Where(l => l.MediaType == "text/html")
-                .First()
+                .Last()
                 .Uri;
         }
 

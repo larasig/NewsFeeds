@@ -54,6 +54,10 @@ namespace Ditw.App.MediaSource.WebScraping
         )
         {
             String text = GetContent(raw);
+            if (String.IsNullOrEmpty(text))
+            {
+                return null;
+            }
             IDataStore dataStore = new DataStoreBase();
 #if true
             dataStore["srcId"] = srcId;
@@ -128,24 +132,31 @@ namespace Ditw.App.MediaSource.WebScraping
 
                 WebClient wc = new WebClient();
                 wc.Encoding = SourcePageEncoding;
-                String content = wc.DownloadString(uri);
-                var ds = BuildDataStore(
-                    SourceId,
-                    //(++idIdx).ToString(),
-                    f.PublishDate,
-                    content,
-                    uri.ToString());
+                try
+                {
+                    String content = wc.DownloadString(uri);
+                    var ds = BuildDataStore(
+                        SourceId,
+                        //(++idIdx).ToString(),
+                        f.PublishDate,
+                        content,
+                        uri.ToString());
 
-                if (ds != null)
-                {
-                    OnNewFeedAvailable("news_eng", ds);
-                    Trace.WriteLine(String.Format(
-                        "Get feed from URL: {0}", uri)
-                    );
+                    if (ds != null)
+                    {
+                        OnNewFeedAvailable("news_eng", ds);
+                        Trace.WriteLine(String.Format(
+                            "Get feed from URL: {0}", uri)
+                        );
+                    }
+                    else
+                    {
+                        Trace.WriteLine("No data found!");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    Trace.WriteLine("No data found!");
+                    Trace.WriteLine("Failed with exception: " + ex.Message);
                 }
             }
         }
