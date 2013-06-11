@@ -236,11 +236,11 @@ namespace Ditw.App.MediaSource.DbUtil
 			DbCommand cmd = MySQLAgent.CreateCommand();
 			cmd.CommandText = insertTempl;
 			//DbParameter param;
-			AddParameter(cmd, "filterId", filterId);
-			AddParameter(cmd, "capturedText", capturedText);
-			AddParameter(cmd, "status", status);
-			AddParameter(cmd, "count", count);
-			AddParameter(cmd, "contextText", contextText);
+            MySQLAgent.AddParameter(cmd, "filterId", filterId);
+            MySQLAgent.AddParameter(cmd, "capturedText", capturedText);
+            MySQLAgent.AddParameter(cmd, "status", status);
+            MySQLAgent.AddParameter(cmd, "count", count);
+            MySQLAgent.AddParameter(cmd, "contextText", contextText);
 			
 			return cmd;
 		}
@@ -286,24 +286,15 @@ namespace Ditw.App.MediaSource.DbUtil
 			DbCommand cmd = MySQLAgent.CreateCommand();
 			cmd.CommandText = insertTempl;
 			//DbParameter param;
-			AddParameter(cmd, "filterId", filterId);
-			AddParameter(cmd, "name", name);
-			AddParameter(cmd, "description", description);
-			AddParameter(cmd, "status", status);
+            MySQLAgent.AddParameter(cmd, "filterId", filterId);
+            MySQLAgent.AddParameter(cmd, "name", name);
+            MySQLAgent.AddParameter(cmd, "description", description);
+            MySQLAgent.AddParameter(cmd, "status", status);
 			
 			return cmd;
 		}
 		
 
-		internal static void AddParameter(DbCommand cmd, String paramName, Object paramValue)
-		{
-			DbParameter param;
-			param = cmd.CreateParameter();
-			param.ParameterName = paramName;
-			param.Value = paramValue;
-			cmd.Parameters.Add(param);
-		}
-		
 		/// <summary>
 		/// create table News (
 		/// 		srcId INT,
@@ -336,17 +327,17 @@ namespace Ditw.App.MediaSource.DbUtil
 			
 			DbCommand cmd = MySQLAgent.CreateCommand();
 			//DbParameter param;
-			AddParameter(cmd, "srcId", srcId);
-			AddParameter(cmd, "id", id);
-			AddParameter(cmd, "pubDate", date.ToString("yyyy-MM-dd"));
-			AddParameter(cmd, "content",
+            MySQLAgent.AddParameter(cmd, "srcId", srcId);
+            MySQLAgent.AddParameter(cmd, "id", id);
+            MySQLAgent.AddParameter(cmd, "pubDate", date.ToString("yyyy-MM-dd"));
+            MySQLAgent.AddParameter(cmd, "content",
 				(content.Length <= NewsContentMaxLength ?
 			    	content : content.Substring(0, NewsContentMaxLength))
 			            );
-			AddParameter(cmd, "raw",
+            MySQLAgent.AddParameter(cmd, "raw",
 			             (raw.Length > 1000 ? raw.Substring(0, 1000) : raw)
 			            );
-			AddParameter(cmd, "content_idx", contentIndex++);
+            MySQLAgent.AddParameter(cmd, "content_idx", contentIndex++);
 			cmd.CommandText = insertTempl;
 			#if false
 			cmd.CommandText = String.Format(
@@ -369,15 +360,15 @@ namespace Ditw.App.MediaSource.DbUtil
 				cmd = MySQLAgent.CreateCommand();
 				contentLeft = contentLeft.Substring(contentLeft.Length - lenContentLeft);
 
-				AddParameter(cmd, "srcId", srcId);
-				AddParameter(cmd, "id", id);
-				AddParameter(cmd, "pubDate", date.ToString("yyyy-MM-dd"));
-				AddParameter(cmd, "content",
+                MySQLAgent.AddParameter(cmd, "srcId", srcId);
+                MySQLAgent.AddParameter(cmd, "id", id);
+                MySQLAgent.AddParameter(cmd, "pubDate", date.ToString("yyyy-MM-dd"));
+                MySQLAgent.AddParameter(cmd, "content",
 					(lenContentLeft <= NewsContentMaxLength ?
 				    	contentLeft : contentLeft.Substring(0, NewsContentMaxLength))
 				            );
-				AddParameter(cmd, "raw", String.Empty);
-				AddParameter(cmd, "content_idx", contentIndex++);
+                MySQLAgent.AddParameter(cmd, "raw", String.Empty);
+                MySQLAgent.AddParameter(cmd, "content_idx", contentIndex++);
 				cmd.CommandText = insertTempl;
 				cmdList.Add(cmd);
 				
@@ -395,7 +386,7 @@ namespace Ditw.App.MediaSource.DbUtil
 					@"SELECT {0} FROM capturedText WHERE filterId=@filterId",
 				    String.IsNullOrEmpty(dataField) ? "*" : dataField
 	                );
-				AddParameter(cmd, "filterId", filterId);
+                MySQLAgent.AddParameter(cmd, "filterId", filterId);
 				return cmd;
 			}
 			else
@@ -418,7 +409,7 @@ namespace Ditw.App.MediaSource.DbUtil
                     @"SELECT {0} FROM news WHERE pubDate=@pubDate",
                     String.IsNullOrEmpty(dataField) ? "*" : dataField
                     );
-                AddParameter(cmd, "pubDate", dt);
+                MySQLAgent.AddParameter(cmd, "pubDate", dt);
                 return cmd;
             }
             else
@@ -453,7 +444,7 @@ namespace Ditw.App.MediaSource.DbUtil
                 // Add parameters
                 for (Int32 i = 0; i < conditions.Length; i++)
                 {
-                    AddParameter(cmd, conditions[i].ParamName, conditions[i].Value);
+                    MySQLAgent.AddParameter(cmd, conditions[i].ParamName, conditions[i].Value);
                 }
             }
             return cmd;

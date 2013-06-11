@@ -85,6 +85,15 @@ namespace Ditw.App.MediaSource.DbUtil
 				InitializeConnection(connString);
 			}
 		}
+
+        internal static void AddParameter(DbCommand cmd, String paramName, Object paramValue)
+        {
+            DbParameter param;
+            param = cmd.CreateParameter();
+            param.ParameterName = paramName;
+            param.Value = paramValue;
+            cmd.Parameters.Add(param);
+        }
 		
 
 	}
